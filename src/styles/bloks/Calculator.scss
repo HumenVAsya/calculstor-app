@@ -1,0 +1,77 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: #fff;
+  padding: 20px;
+  margin: 0 20px;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+}
+.title {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.loan-form::nth-last-child(2) {
+  margin-bottom: 40px;
+}
+
+.form-group {
+  padding-top: 20px;
+  &__count {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.slider {
+  width: 100%;
+  background-color: #fff;
+  padding-block: 10px;
+  cursor: pointer;
+}
+
+.input__counter {
+  width: 60px;
+  padding-left: 7px;
+  text-decoration: none;
+  height: 30px;
+  border-radius: 10%;
+  cursor: pointer;
+  background-color: #f6f2f2;
+}
+
+.button {
+  color: black;
+  display: flex;
+  margin: 0 auto;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 20px;
+  transition: all 0.1s;
+  &:hover {
+    box-shadow: 1px 4px 16px 0 #8c848466;
+  }
+  &:active {
+    background-color: #cccccc;
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+  }
+}

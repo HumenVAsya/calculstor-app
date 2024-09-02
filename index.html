@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/styles/style.scss" />
+    <title>Credit calculator</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Кредитний калькулятор</h1>
+      <form class="loan-form">
+        <div class="form-group">
+          <div class="form-group__count">
+            <label>Сума кредиту (1000 - 50000 грн)</label>
+
+            <input
+              type="number"
+              id="loan-amount--input"
+              class="input__counter"
+              min="1000"
+              max="50000"
+              step="100"
+            />
+          </div>
+          <input
+            type="range"
+            id="loan-amount--slider"
+            class="slider"
+            min="1000"
+            max="50000"
+            step="100"
+          />
+        </div>
+
+        <div class="form-group">
+          <div class="form-group__count">
+            <label>Період погашення (7 - 60 днів)</label>
+            <input
+              type="number"
+              id="repayment-input"
+              class="input__counter"
+              min="7"
+              max="60"
+            />
+          </div>
+          <input
+            type="range"
+            class="slider"
+            min="7"
+            max="60"
+            step="1"
+            id="repayment-slider"
+          />
+        </div>
+
+        <button type="submit" class="button" id="button" disabled>
+          Отримати кредит
+        </button>
+      </form>
+
+      <div class="details">
+        <div class="form-group form-group__count">
+          <label>Щоденна оплата</label>
+          <input
+            type="number"
+            id="daily-payment"
+            class="input__counter"
+            readonly
+          />
+        </div>
+
+        <div class="form-group form-group__count">
+          <label>Загальна сума погашення</label>
+          <input
+            type="number"
+            id="total-payment"
+            class="input__counter"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+    <script type="module" src="src/js/main.js"></script>
+  </body>
+</html>
