@@ -36,7 +36,6 @@ const isValid = () => {
     button.disabled = true;
   }
 
-  console.log(repayment, amount);
 };
 
 loanAmountInput.addEventListener("input", () => {
