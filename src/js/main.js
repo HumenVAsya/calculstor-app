@@ -6,36 +6,85 @@ const button = document.getElementById("button");
 const dailyPayment = document.getElementById("daily-payment");
 const totalPayment = document.getElementById("total-payment");
 
-loanAmountSlider.value = 1000;
-repaymentSlider.value = 7;
+const errorMessages = {
+  repayment: {
+    min: "Мінімальний період погашення 7 днів",
+    max: "Максимальний період погашення 60 днів",
+  },
+  'loan-amount': {
+    min: "Мінімальна сума 1000 грн",
+    max: "Максимальна сума 50000 грн",
+  },
+};
 
-const calculations = () => {
-  const IR = 2.2;
-  const LA = +loanAmountInput.value;
-  const PR = +repaymentInput.value;
+const showError = (inputType, value) => {
+  const errorMessageBlok = document.getElementById(
+    `error-message__${inputType}`
+  );
+  const errorMessage = document.querySelector(`.error-message__${inputType}`);
 
-  if (loanAmountInput.value && repaymentSlider.value) {
-    dailyPayment.value = ((LA + LA * (IR / 100) * PR) / PR).toFixed();
-    totalPayment.value = (
-      +dailyPayment.value * +repaymentInput.value
-    ).toFixed();
+  const minValue = inputType === "loan-amount" ? 1000 : 7;
+  const maxValue = inputType === "loan-amount" ? 50000 : 60;
+
+  if (value < minValue) {
+    errorMessageBlok.style.opacity = 1;
+    errorMessage.innerText = errorMessages[inputType].min;
+  } else if (value > maxValue) {
+    errorMessageBlok.style.opacity = 1;
+    errorMessage.innerText = errorMessages[inputType].max;
+  } else {
+    errorMessageBlok.style.opacity = 0;
   }
 };
 
+const handleInputChange = (input, slider, inputType) => {
+  input.addEventListener("input", () => {
+    slider.value = +input.value;
+    calculations();
+    isValid();
+  });
+
+  input.addEventListener("blur", () => {
+    showError(inputType, +input.value);
+  });
+
+  slider.addEventListener("input", () => {
+    input.value = +slider.value;
+    calculations();
+    isValid();
+  });
+
+  slider.addEventListener("blur", () => {
+    showError(inputType, +slider.value);
+  });
+};
+
+loanAmountSlider.value = 1000;
+repaymentSlider.value = 7;
+
 const isValid = () => {
   const amount =
-    parseFloat(loanAmountInput.value) >= 1000 &&
-    parseFloat(loanAmountInput.value) <= 50000;
-  const repayment =
-    parseFloat(repaymentInput.value) >= 7 &&
-    parseFloat(repaymentInput.value) <= 60;
+    +loanAmountInput.value >= 1000 && +loanAmountInput.value <= 50000;
+  const repayment = +repaymentInput.value >= 7 && +repaymentInput.value <= 60;
 
   if (repayment && amount) {
     button.disabled = false;
   } else {
     button.disabled = true;
   }
+};
+const calculations = () => {
+  const IR = 2.2;
+  const LA = +loanAmountInput.value;
+  const PR = +repaymentInput.value;
 
+  if (LA && PR) {
+    dailyPayment.value = ((LA + LA * (IR / 100) * PR) / PR).toFixed();
+
+    totalPayment.value = (
+      +dailyPayment.value * +repaymentInput.value
+    ).toFixed();
+  }
 };
 
 loanAmountInput.addEventListener("input", () => {
@@ -44,23 +93,8 @@ loanAmountInput.addEventListener("input", () => {
   isValid();
 });
 
-loanAmountSlider.addEventListener("input", () => {
-  loanAmountInput.value = +loanAmountSlider.value;
-  calculations();
-  isValid();
-});
-
-repaymentInput.addEventListener("input", () => {
-  loanAmountSlider.value = +loanAmountInput.value;
-  calculations();
-  isValid();
-});
-
-repaymentSlider.addEventListener("input", () => {
-  repaymentInput.value = +repaymentSlider.value;
-  calculations();
-  isValid();
-});
+handleInputChange(loanAmountInput, loanAmountSlider, "loan-amount");
+handleInputChange(repaymentInput, repaymentSlider, "repayment");
 
 button.addEventListener("click", (a) => {
   a.preventDefault();
@@ -71,4 +105,5 @@ button.addEventListener("click", (a) => {
   loanAmountSlider.value = 1000;
   dailyPayment.value = "";
   totalPayment.value = "";
+  button.disabled = true;
 });

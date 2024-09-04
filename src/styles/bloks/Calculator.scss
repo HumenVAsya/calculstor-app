@@ -75,3 +75,21 @@ body {
     background-color: #cccccc;
   }
 }
+
+.error-message {
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 10;
+  justify-content: end;
+
+  &__loan-amount,
+  &__repayment {
+    display: inline-block;
+    color: red;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid red;
+    border-radius: 20px;
+  }
+}
